@@ -41,7 +41,9 @@ class Dog(models.Model):
     gender = models.CharField(max_length=1, choices=DOG_GENDERS)
     breed = models.ForeignKey(Breed, on_delete=models.PROTECT, related_name="dogs")
     vaccines = models.ManyToManyField(Vaccine, through="Vaccination", related_name="dogs")
-    caretakers = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name="dogs")
+    caretakers = models.ManyToManyField(
+        settings.AUTH_USER_MODEL, related_name="dogs", blank=True
+    )
 
     class Meta:
         ordering = ["date_registered"]
