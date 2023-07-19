@@ -13,6 +13,11 @@ class Breed(models.Model):
     name = models.CharField(max_length=100, unique=True)
     dog_size = models.CharField(max_length=1, choices=DOG_SIZES, default="M")
 
+    class Meta:
+        ordering = ["name"]
+
+    def __str__(self) -> str:
+        return self.name
 
 class Vaccine(models.Model):
     name = models.CharField(max_length=255)
@@ -40,6 +45,9 @@ class Dog(models.Model):
 
     class Meta:
         orgering = ["date_registered"]
+
+    def __str__(self) -> str:
+        return f"{self.name} ({self.breed}, {self.age})"
 
 
 class Vaccination(models.Model):
