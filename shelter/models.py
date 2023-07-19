@@ -44,7 +44,7 @@ class Dog(models.Model):
     caretakers = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name="dogs")
 
     class Meta:
-        orgering = ["date_registered"]
+        ordering = ["date_registered"]
 
     def __str__(self) -> str:
         return f"{self.name} ({self.breed}, {self.age})"
