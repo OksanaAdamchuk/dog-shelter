@@ -57,6 +57,9 @@ class Vaccination(models.Model):
     vaccine = models.ForeignKey(Vaccine, on_delete=models.CASCADE)
     vaccination_date = models.DateField()
 
+    def __str__(self) -> str:
+        return f"{self.dog.name} ({self.vaccine.name}, {self.vaccination_date})"
+
 
 class Caretaker(AbstractUser):
     EXPERT_LEVELS = [
@@ -74,3 +77,8 @@ class Caretaker(AbstractUser):
     class Meta:
         ordering = ["username"]
 
+    def __str__(self) -> str:
+        return (
+            f"{self.first_name} {self.last_name} "
+            f"({self.username}, expert level: {self.expert_level})"
+        )
