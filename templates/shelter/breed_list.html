@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block title %}
+  <title>Breeds</title>
+{% endblock %}
+
+{% block content %}
+  <h1>Breeds list</h1>
+  <p>In our shelter you can find dogs of any breeds</p>
+  {% if breed_list %}
+    <table class="table">
+      <tr>
+        <th>Name</th>
+        <th>Dog size</th>
+        <th>Number of dogs</th>
+      </tr>
+      {% for breed in breed_list %}
+        <tr>
+          <td><a href="{% url 'shelter:breed-detail' pk=breed.id %}">{{ breed.name }}</a></td>
+          <td>{{ breed.dog_size }}</td>
+          <td>{{ breed.dogs.count }}</td>
+        </tr>
+      {% endfor %}
+    </table>
+  {% else %}
+    <p>There are no breeds</p>
+  {% endif %}
+
+{% endblock %}

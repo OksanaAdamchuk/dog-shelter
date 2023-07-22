@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block title %}
+  <title>Dogs</title>
+{% endblock %}
+
+{% block content %}
+  <h1>Our dogs</h1>
+  <div class="card-container">
+  {% if dog_list %}
+    {% for dog in dog_list %}
+      <div class="card" style="width: 18rem;">
+        <div class="card-body">
+          <h5 class="card-title"> {{ dog.name }} </h5>
+          {% if dog.age %}
+          <h6 class="card-subtitle mb-2 text-body-secondary">{{ dog.age }}</h6>
+          {% endif %}
+          <p class="card-text">This dog was registered in our shelter {{ dog.date_registered }}. This is {{ dog.breed.name }} {{ dog.gender }} dog</p>
+          <a href="{% url 'shelter:dog-detail' pk=dog.id %}" class="card-link">Details</a>
+        </div>
+      </div>
+    {% endfor %}
+  {% else %}
+    <p>We don't have dogs in our shelter now</p>
+  {% endif %}
+  </div>
+{% endblock %}
