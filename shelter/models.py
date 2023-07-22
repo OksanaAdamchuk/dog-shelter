@@ -5,13 +5,13 @@ from django.conf import settings
 
 class Breed(models.Model):
     DOG_SIZES = [
-        ("S", "small"),
-        ("M", "medium"),
-        ("L", "large"),
-        ("G", "giant"),
+        ("small", "small"),
+        ("medium", "medium"),
+        ("large", "large"),
+        ("giant", "giant"),
     ]
     name = models.CharField(max_length=100, unique=True)
-    dog_size = models.CharField(max_length=1, choices=DOG_SIZES, default="M")
+    dog_size = models.CharField(max_length=10, choices=DOG_SIZES, default="medium")
 
     class Meta:
         ordering = ["name"]
@@ -31,14 +31,14 @@ class Vaccine(models.Model):
 
 class Dog(models.Model):
     DOG_GENDERS = [
-        ("F", "female"),
-        ("M", "male"),
+        ("female", "female"),
+        ("male", "male"),
     ]
     name = models.CharField(max_length=60, default="No name")
     age = models.CharField(max_length=100, blank=True, null=True)
     date_registered = models.DateField()
     sterilized = models.BooleanField(default=False)
-    gender = models.CharField(max_length=1, choices=DOG_GENDERS)
+    gender = models.CharField(max_length=6, choices=DOG_GENDERS)
     breed = models.ForeignKey(Breed, on_delete=models.PROTECT, related_name="dogs")
     vaccines = models.ManyToManyField(Vaccine, through="Vaccination", related_name="dogs")
     caretakers = models.ManyToManyField(
