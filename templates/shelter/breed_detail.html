@@ -7,7 +7,7 @@
 {% block content %}
   <h1>{{ breed.name }} ({{ breed.dog_size }}-size dogs)</h1>
   {% for dog in breed.dogs.all %}
-    <p>Currently in our shelter we have {{ breed.dogs.count }} dogs of this breed</p>
+    <p>Currently in our shelter we have {{ breed.dogs.count }} dog{{ breed.dogs.count|pluralize }} of this breed</p>
     <ul>
       <li><a href="{% url 'shelter:dog-detail' pk=dog.id %}">{{ dog.name }}</a> (age: {{ dog.age }})</li>
     </ul>

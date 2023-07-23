@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block title %}
+  <title>Caretakers</title>
+{% endblock %}
+
+{% block content %}
+  <h1>Our caretakers</h1>
+  <div>
+  {% if caretaker_list %}
+    <ol>
+    {% for caretaker in caretaker_list %}
+      <li> <a href="{% url 'shelter:caretaker-detail' pk=caretaker.id %}">{{ caretaker.first_name }} {{ caretaker.last_name }}</a> ({{ caretaker.username }}, expert-level: {{ caretaker.expert_level }})</li>
+    {% endfor %}
+    </ol>
+  {% else %}
+    <p>We don't have registered caretakers yet</p>
+  {% endif %}
+  </div>
+{% endblock %}

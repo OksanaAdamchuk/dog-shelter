@@ -1,6 +1,15 @@
 from django.urls import path
 
-from shelter.views import  BreedDetailView, BreedListView, DogDetailView, DogListView, VaccineListView, index
+from shelter.views import (
+    BreedDetailView,
+    BreedListView,
+    CaretakerDetailView,
+    CaretakerListView,
+    DogDetailView,
+    DogListView,
+    VaccineListView,
+    index
+)
 
 urlpatterns = [
     path("", index, name="index"),
@@ -16,7 +25,13 @@ urlpatterns = [
     ),
     path(
         "dogs/<int:pk>/", DogDetailView.as_view(), name="dog-detail"
-    )
+    ),
+    path(
+        "caretakers/", CaretakerListView.as_view(), name="caretaker-list"
+    ),
+    path(
+        "caretakers/<int:pk>/", CaretakerDetailView.as_view(), name="caretaker-detail"
+    ),
 ]
 
 app_name = "shelter"
