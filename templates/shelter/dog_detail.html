@@ -6,5 +6,40 @@
 
 {% block content %}
   <h1>{{ dog.name }}</h1>
+  <ul>
+    {% if dog.age %}
+    <li>Age: {{ dog.age }}</li>
+    {% endif %}
+    <li>Date of registartion in the shelter: {{ dog.date_registered }} </li>
+    <li>Sterilized: {{ dog.sterilized }}</li>
+    <li>Gender: {{ dog.gender }}</li>
+    <li>Breed: {{ dog.breed.name }}</li>
+    {% if dog.vaccines %}
+    <li>Vaccinations list: 
+      <ol>
+        {% for vaccine in dog.vaccines.all %}
+          {% for vaccination in vaccinations %}
+            {% if vaccine == vaccination.vaccine %}
+              <li> {{ vaccine }}. Vaccinated at {{ vaccination.vaccination_date }} </li>
+            {% endif %}
+          {% endfor %}
+        {% empty %}
+          <span> - </span>
+        {% endfor %}
+      </ol>
+    </li>
+    {% endif %}
+    {% if dog.caretakers %}
+    <li>Caretakers: 
+      <ol>
+        {% for caretaker in dog.caretakers.all %}
+          <li> {{ caretaker.first_name }} ({{ caretaker.username }})</li>
+        {% empty %}
+        <span>This dog doesn't have caretakers now </span>
+        {% endfor %}
+      </ol>
+    </li>
+    {% endif %}
+  </ul>
 
 {% endblock %}
