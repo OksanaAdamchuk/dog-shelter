@@ -10,7 +10,11 @@
   <p>In our shelter we vaccinate our dogs with next vaccines:</p>
   <ul>
     {% for vaccine in vaccine_list %}
-    <li>{{ vaccine.name }}</li>
+    <li>{{ vaccine.name }}
+      <a href="{% url 'shelter:vaccine-update' pk=vaccine.id %}">Update</a>
+      <a href="{% url 'shelter:vaccine-delete' pk=vaccine.id %}">Delete</a>
+    </li>
+    
     {% endfor %}
   </ul>
   {% else %}

@@ -10,6 +10,9 @@ from shelter.views import (
     CaretakerListView,
     DogDetailView,
     DogListView,
+    VaccineCreateView,
+    VaccineDeleteView,
+    VaccineUpdateView,
     VaccineListView,
     index
 )
@@ -29,6 +32,15 @@ urlpatterns = [
     path("breeds/create/", BreedCreateView.as_view(), name="breed-create"),
     path(
         "vaccines/", VaccineListView.as_view(), name="vaccine-list"
+    ),
+    path(
+        "vaccines/create/", VaccineCreateView.as_view(), name="vaccine-create"
+    ),
+    path(
+        "vaccines/<int:pk>/update/", VaccineUpdateView.as_view(), name="vaccine-update"
+    ),
+    path(
+        "vaccines/<int:pk>/delete/", VaccineDeleteView.as_view(), name="vaccine-delete"
     ),
     path(
         "dogs/", DogListView.as_view(), name="dog-list"

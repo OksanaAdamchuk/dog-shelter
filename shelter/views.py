@@ -51,6 +51,23 @@ class VaccineListView(generic.ListView):
     context_object_name = "vaccine_list"
 
 
+class VaccineCreateView(LoginRequiredMixin, generic.CreateView):
+    model = Vaccine
+    fields = "__all__"
+    success_url = reverse_lazy("shelter:vaccine-create")
+
+
+class VaccineUpdateView(LoginRequiredMixin, generic.UpdateView):
+    model = Vaccine
+    fields = "__all__"
+    success_url = reverse_lazy("shelter:vaccine-list")
+
+
+class VaccineDeleteView(LoginRequiredMixin, generic.DeleteView):
+    model = Vaccine
+    success_url = reverse_lazy("shelter:vaccine-delete")
+
+
 class DogListView(generic.ListView):
     model = Dog
     context_object_name = "dog_list"
