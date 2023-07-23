@@ -1,8 +1,11 @@
 from django.urls import path
 
 from shelter.views import (
+    BreedCreateView,
+    BreedDeleteView,
     BreedDetailView,
     BreedListView,
+    BreedUpdateView,
     CaretakerDetailView,
     CaretakerListView,
     DogDetailView,
@@ -18,6 +21,13 @@ urlpatterns = [
         "breeds/<int:pk>/", BreedDetailView.as_view(), name="breed-detail"
     ),
     path(
+        "breeds/<int:pk>/update/", BreedUpdateView.as_view(), name="breed-update"
+    ),
+    path(
+        "breeds/<int:pk>/delete/", BreedDeleteView.as_view(), name="breed-delete"
+    ),
+    path("breeds/create/", BreedCreateView.as_view(), name="breed-create"),
+    path(
         "vaccines/", VaccineListView.as_view(), name="vaccine-list"
     ),
     path(
@@ -32,6 +42,7 @@ urlpatterns = [
     path(
         "caretakers/<int:pk>/", CaretakerDetailView.as_view(), name="caretaker-detail"
     ),
+    
 ]
 
 app_name = "shelter"

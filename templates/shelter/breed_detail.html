@@ -6,6 +6,10 @@
 
 {% block content %}
   <h1>{{ breed.name }} ({{ breed.dog_size }}-size dogs)</h1>
+  <p>
+    <a href="{% url 'shelter:breed-update' pk=breed.id %}">Update</a>
+    <a href="{% url 'shelter:breed-delete' pk=breed.id %}">Delete</a>
+  </p>
   {% for dog in breed.dogs.all %}
     <p>Currently in our shelter we have {{ breed.dogs.count }} dog{{ breed.dogs.count|pluralize }} of this breed</p>
     <ul>

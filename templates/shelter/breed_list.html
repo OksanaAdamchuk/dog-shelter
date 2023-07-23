@@ -6,7 +6,7 @@
 
 {% block content %}
   <h1>Breeds list</h1>
-  <p>In our shelter you can find dogs of any breeds</p>
+  <p>In our shelter you can find dogs of any breeds <span><a href="{% url 'shelter:breed-create' %}">Add new breed</a></span></p>
   {% if breed_list %}
     <table class="table">
       <tr>

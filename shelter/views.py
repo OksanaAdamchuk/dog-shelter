@@ -1,5 +1,6 @@
 from django.http import HttpResponse
 from django.shortcuts import render
+from django.urls import reverse_lazy
 from django.views import generic
 from django.contrib.auth.mixins import LoginRequiredMixin
 
@@ -27,6 +28,22 @@ class BreedListView(generic.ListView):
 class BreedDetailView(generic.DetailView):
     model = Breed
     queryset = Breed.objects.prefetch_related("dogs")
+
+
+class BreedCreateView(LoginRequiredMixin, generic.CreateView):
+    model = Breed
+    fields = "__all__"
+    success_url = reverse_lazy("shelter:breed-list")
+
+
+class BreedUpdateView(LoginRequiredMixin, generic.UpdateView):
+    model = Breed
+    fields = "__all__"
+
+
+class BreedDeleteView(LoginRequiredMixin, generic.DeleteView):
+    model = Breed
+    success_url = reverse_lazy("shelter:breed-list")
 
 
 class VaccineListView(generic.ListView):
