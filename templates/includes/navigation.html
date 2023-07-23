@@ -8,7 +8,11 @@
     <li><a class="menu_item" href="{% url 'shelter:vaccine-list' %}">Vaccines</a></li>
     <li><a class="menu_item" href="{% url 'shelter:caretaker-list' %}">Caretakers</a></li>
     <li><a class="menu_item" href="{% url 'shelter:breed-list' %}">Breeds</a></li>
-    <li><a class="menu_item" href="#">Login</a></li>
-    <li><a class="menu_item" href="#">Logout</a></li>
+    {% if user.is_authenticated %}
+      <li><a class="menu_item" href="#">User: {{ user.username }}</a></li>
+    {% else %}
+      <li><a class="menu_item" href="{% url 'login' %}">Login</a></li>
+    {% endif %}
+    <li><a class="menu_item" href="{% url 'logout' %}">Logout</a></li>
     </ul>
 </nav>
