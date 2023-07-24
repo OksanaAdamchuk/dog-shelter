@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.conf import settings
+from django.urls import reverse
 
 
 class Breed(models.Model):
@@ -18,6 +19,10 @@ class Breed(models.Model):
 
     def __str__(self) -> str:
         return self.name
+    
+    def get_absolute_url(self):
+        return reverse("shelter:breed-detail", args=[str(self.pk)])
+    
 
 class Vaccine(models.Model):
     name = models.CharField(max_length=255)
@@ -50,6 +55,9 @@ class Dog(models.Model):
 
     def __str__(self) -> str:
         return f"{self.name} ({self.breed}, {self.age})"
+    
+    def get_absolute_url(self):
+        return reverse("shelter:dog-detail", args=[str(self.pk)])
 
 
 class Vaccination(models.Model):
@@ -59,6 +67,7 @@ class Vaccination(models.Model):
 
     def __str__(self) -> str:
         return f"{self.dog.name} ({self.vaccine.name}, {self.vaccination_date})"
+    
 
 
 class Caretaker(AbstractUser):
@@ -82,3 +91,6 @@ class Caretaker(AbstractUser):
             f"{self.first_name} {self.last_name} "
             f"({self.username}, expert level: {self.expert_level})"
         )
+
+    def get_absolute_url(self):
+        return reverse("shelter:caretaker-detail", args=[str(self.pk)])

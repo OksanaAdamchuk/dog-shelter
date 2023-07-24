@@ -1,5 +1,4 @@
 {% extends "base.html" %}
-{% load crispy_forms_filters %}
 
 {% block title %}
   <title>Breeds</title>
@@ -8,10 +7,9 @@
 {% block content %}
   <h1>Breeds list</h1>
   <p>In our shelter you can find dogs of any breeds <span><a href="{% url 'shelter:breed-create' %}">Add new breed</a></span></p>
-  <form action="" method="get" class="form-inline">
-    {{ search_form|crispy }}
-    <input type="submit" value="search" class="btn btn-primary">
-  </form>
+  {% block search_form %}
+    {% include "includes/search_form.html" %}
+  {% endblock %}
   {% if breed_list %}
     <table class="table">
       <tr>
@@ -21,7 +19,7 @@
       </tr>
       {% for breed in breed_list %}
         <tr>
-          <td><a href="{% url 'shelter:breed-detail' pk=breed.id %}">{{ breed.name }}</a></td>
+          <td><a href="{{ breed.get_absolute_url }}">{{ breed.name }}</a></td>
           <td>{{ breed.dog_size }}</td>
           <td>{{ breed.dogs.count }}</td>
         </tr>

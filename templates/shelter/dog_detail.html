@@ -21,7 +21,8 @@
           {% for vaccination in vaccinations %}
             {% if vaccine == vaccination.vaccine %}
               <li> {{ vaccine }}. Vaccinated at {{ vaccination.vaccination_date }} 
-                
+                <a href="{% url 'shelter:vaccination-update' dog_id=dog.pk pk=vaccination.pk %}" class="btn btn-secondary">Update</a>
+                <a href="{% url 'shelter:vaccination-delete' dog_id=dog.pk pk=vaccination.pk %}" class="btn btn-danger">Delete</a>
               </li>
             {% endif %}
           {% endfor %}

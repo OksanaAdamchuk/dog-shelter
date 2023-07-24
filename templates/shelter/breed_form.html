@@ -14,7 +14,7 @@
     {{ form|crispy }}
     <input type="submit" value="Submit" class="btn btn-secondary">
     {% if object %}
-      <a href="{% url 'shelter:breed-detail' pk=breed.id %}" class="btn btn-secondary">Cancel</a>
+      <a href="{{ breed.get_absolute_url }}" class="btn btn-secondary">Cancel</a>
     {% else %}
     <a href="{% url 'shelter:breed-list' %}" class="btn btn-secondary">Cancel</a>
     {% endif %}

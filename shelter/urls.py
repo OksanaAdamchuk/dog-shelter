@@ -21,6 +21,7 @@ from shelter.views import (
     VaccineUpdateView,
     VaccineListView,
     VaccinationCreateView,
+    VaccinationDeleteView,
     VaccinationUpdateView,
     index
 )
@@ -83,7 +84,16 @@ urlpatterns = [
     path(
         "vaccination/create/<int:dog_id>/", VaccinationCreateView.as_view(), name="vaccination-create"
     ),
-
+    path(
+        "vaccination/update/<int:dog_id>/<int:pk>/",
+        VaccinationUpdateView.as_view(),
+        name="vaccination-update"
+    ),
+    path(
+        "vaccination/delete/<int:dog_id>/<int:pk>/",
+        VaccinationDeleteView.as_view(),
+        name="vaccination-delete"
+    ),
 ]
 
 app_name = "shelter"

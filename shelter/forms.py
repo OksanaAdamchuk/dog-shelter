@@ -37,3 +37,21 @@ class BreedSearchForm(forms.Form):
         label="",
         widget=forms.TextInput(attrs={"placeholder": "search by breed name"})
     )
+
+
+class CaretakerSearchForm(forms.Form):
+    username = forms.CharField(
+        max_length=100,
+        required=False,
+        label="",
+        widget=forms.TextInput(attrs={"placeholder": "search by username"})
+    )
+
+
+class DogSearchForm(forms.Form):
+    name = forms.CharField(
+        max_length=100,
+        required=False,
+        label="",
+        widget=forms.TextInput(attrs={"placeholder": "search by dog name"})
+    )

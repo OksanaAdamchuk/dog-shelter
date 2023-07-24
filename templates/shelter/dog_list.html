@@ -6,6 +6,9 @@
 
 {% block content %}
   <h1>Our dogs</h1>
+  {% block search_form %}
+    {% include "includes/search_form.html" %}
+  {% endblock %}
   <p><a href="{% url 'shelter:dog-create' %}">Add new dog +</a></p>
   <div class="card-container">
   {% if dog_list %}

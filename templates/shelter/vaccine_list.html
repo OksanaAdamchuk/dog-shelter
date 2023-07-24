@@ -6,6 +6,9 @@
 
 {% block content %}
   <h1>Vaccines list</h1>
+  <p>
+    <a href="{% url 'shelter:vaccine-create' %}">add new</a>
+  </p>
   {% if vaccine_list %}
   <p>In our shelter we vaccinate our dogs with next vaccines:</p>
   <ul>
