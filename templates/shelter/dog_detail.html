@@ -20,13 +20,18 @@
         {% for vaccine in dog.vaccines.all %}
           {% for vaccination in vaccinations %}
             {% if vaccine == vaccination.vaccine %}
-              <li> {{ vaccine }}. Vaccinated at {{ vaccination.vaccination_date }} </li>
+              <li> {{ vaccine }}. Vaccinated at {{ vaccination.vaccination_date }} 
+                
+              </li>
             {% endif %}
           {% endfor %}
         {% empty %}
           <span> - </span>
         {% endfor %}
       </ol>
+      <p>
+        <a href="{% url 'shelter:vaccination-create' dog_id=dog.id %}" class="btn btn-secondary">Add vaccination</a>
+      </p>
     </li>
     {% endif %}
     {% if dog.caretakers %}
@@ -41,5 +46,9 @@
     </li>
     {% endif %}
   </ul>
+  <p>
+    <a href="{% url 'shelter:dog-update' pk=dog.id %}" class="btn btn-secondary">Update</a>
+    <a href="{% url 'shelter:dog-delete' pk=dog.id %}" class="btn btn-danger">Delete</a>
+  </p>
 
 {% endblock %}

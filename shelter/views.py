@@ -1,8 +1,9 @@
 from django.http import HttpResponse
-from django.shortcuts import render
-from django.urls import reverse_lazy
+from django.shortcuts import get_object_or_404, redirect, render
+from django.urls import reverse, reverse_lazy
 from django.views import generic
 from django.contrib.auth.mixins import LoginRequiredMixin
+from shelter.forms import DogForm
 
 from shelter.models import Breed, Caretaker, Dog, Vaccination, Vaccine
 
@@ -54,7 +55,7 @@ class VaccineListView(generic.ListView):
 class VaccineCreateView(LoginRequiredMixin, generic.CreateView):
     model = Vaccine
     fields = "__all__"
-    success_url = reverse_lazy("shelter:vaccine-create")
+    success_url = reverse_lazy("shelter:vaccine-list")
 
 
 class VaccineUpdateView(LoginRequiredMixin, generic.UpdateView):
@@ -65,7 +66,7 @@ class VaccineUpdateView(LoginRequiredMixin, generic.UpdateView):
 
 class VaccineDeleteView(LoginRequiredMixin, generic.DeleteView):
     model = Vaccine
-    success_url = reverse_lazy("shelter:vaccine-delete")
+    success_url = reverse_lazy("shelter:vaccine-list")
 
 
 class DogListView(generic.ListView):
@@ -86,6 +87,23 @@ class DogDetailView(generic.DetailView):
         return context
     
 
+class DogCreateView(LoginRequiredMixin, generic.CreateView):
+    model = Dog
+    form_class = DogForm
+    success_url = reverse_lazy("shelter:dog-list")  
+
+
+class DogUpdateView(LoginRequiredMixin, generic.UpdateView):
+    model = Dog
+    form_class = DogForm
+    success_url = reverse_lazy("shelter:dog-list")
+
+
+class DogDeleteView(LoginRequiredMixin, generic.DeleteView):
+    model = Dog
+    success_url = reverse_lazy("shelter:dog-list")
+
+
 class CaretakerListView(LoginRequiredMixin, generic.ListView):
     model = Caretaker
     paginate_by = 15
@@ -94,4 +112,46 @@ class CaretakerListView(LoginRequiredMixin, generic.ListView):
 
 class CaretakerDetailView(LoginRequiredMixin, generic.DetailView):
     model = Caretaker
+    
+
+class VaccinationCreateView(LoginRequiredMixin, generic.CreateView):
+    model = Vaccination
+    fields = ["vaccine", "vaccination_date"]
+    success_url = reverse_lazy("shelter:dog-list")
+
+    def form_valid(self, form):
+        dog_id = self.kwargs["dog_id"]  
+        dog = get_object_or_404(Dog, id=dog_id)
+        form.instance.dog = dog
+
+        return super().form_valid(form)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        dog_id = self.kwargs["dog_id"]
+        dog = get_object_or_404(Dog, id=dog_id)
+        context["dog_id"] = dog_id
+        context["dog_name"] = dog.name
+        return context
+    
+
+class VaccinationUpdateView(LoginRequiredMixin, generic.UpdateView):
+    model = Vaccination
+    fields = ["vaccine", "vaccination_date"]
+    success_url = reverse_lazy("shelter:dog-list")
+
+    def form_valid(self, form):
+        dog_id = self.kwargs["dog_id"]  
+        dog = get_object_or_404(Dog, id=dog_id)
+        form.instance.dog = dog
+
+        return super().form_valid(form)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        dog_id = self.kwargs["dog_id"]
+        dog = get_object_or_404(Dog, id=dog_id)
+        context["dog_id"] = dog_id
+        context["dog_name"] = dog.name
+        return context
     

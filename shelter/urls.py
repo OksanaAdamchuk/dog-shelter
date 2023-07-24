@@ -8,12 +8,17 @@ from shelter.views import (
     BreedUpdateView,
     CaretakerDetailView,
     CaretakerListView,
+    DogCreateView,
+    DogDeleteView,
     DogDetailView,
     DogListView,
+    DogUpdateView,
     VaccineCreateView,
     VaccineDeleteView,
     VaccineUpdateView,
     VaccineListView,
+    VaccinationCreateView,
+    VaccinationUpdateView,
     index
 )
 
@@ -49,12 +54,24 @@ urlpatterns = [
         "dogs/<int:pk>/", DogDetailView.as_view(), name="dog-detail"
     ),
     path(
+        "dogs/create/", DogCreateView.as_view(), name="dog-create"
+    ),
+    path(
+        "dogs/<int:pk>/update/", DogUpdateView.as_view(), name="dog-update"
+    ),
+    path(
+        "dogs/<int:pk>/delete/", DogDeleteView.as_view(), name="dog-delete"
+    ),
+    path(
         "caretakers/", CaretakerListView.as_view(), name="caretaker-list"
     ),
     path(
         "caretakers/<int:pk>/", CaretakerDetailView.as_view(), name="caretaker-detail"
     ),
-    
+    path(
+        "vaccination/create/<int:dog_id>/", VaccinationCreateView.as_view(), name="vaccination-create"
+    ),
+
 ]
 
 app_name = "shelter"
