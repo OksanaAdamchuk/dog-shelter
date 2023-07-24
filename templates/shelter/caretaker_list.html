@@ -6,6 +6,7 @@
 
 {% block content %}
   <h1>Our caretakers</h1>
+  <p><a href="{% url 'shelter:caretaker-create' %}" class="btn btn-secondary">Create new</a></p>
   <div>
   {% if caretaker_list %}
     <ol>

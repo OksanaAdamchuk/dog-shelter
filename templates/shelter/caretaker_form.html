@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% load crispy_forms_filters %}
+{% load crispy_forms_tags %}
+
+{% block title %}
+  <title>{{ object|yesno:"Update,Create" }} caretaker</title>
+{% endblock %}
+
+{% block content %}
+
+  <h1>{{ object|yesno:"Update,Create new" }} caretaker</h1>
+  <form action="" method="post" novalidate>
+    {% csrf_token %}
+    {{ form|crispy }}
+    <input type="submit" value="Submit" class="btn btn-secondary">
+    {% if object %}
+      <a href="{% url 'shelter:caretaker-detail' pk=caretaker.id %}" class="btn btn-secondary">Cancel</a>
+    {% else %}
+    <a href="{% url 'shelter:caretaker-list' %}" class="btn btn-secondary">Cancel</a>
+    {% endif %}
+  </form>
+
+{% endblock %}

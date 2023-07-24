@@ -112,7 +112,24 @@ class CaretakerListView(LoginRequiredMixin, generic.ListView):
 
 class CaretakerDetailView(LoginRequiredMixin, generic.DetailView):
     model = Caretaker
-    
+
+
+class CaretakerCreateView(LoginRequiredMixin, generic.CreateView):
+    model = Caretaker
+    fields = ["username", "first_name", "last_name", "expert_level", "email"]
+    success_url = reverse_lazy("shelter:caretaker-list")
+
+
+class CaretakerUpdateView(LoginRequiredMixin, generic.UpdateView):
+    model = Caretaker
+    fields = ["username", "first_name", "last_name", "expert_level", "email"]
+    success_url = reverse_lazy("shelter:caretaker-list")
+
+
+class CaretakerDeleteView(LoginRequiredMixin, generic.DeleteView):
+    model = Caretaker
+    success_url = reverse_lazy("shelter:caretaker-list")
+
 
 class VaccinationCreateView(LoginRequiredMixin, generic.CreateView):
     model = Vaccination

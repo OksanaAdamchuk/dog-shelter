@@ -6,8 +6,11 @@ from shelter.views import (
     BreedDetailView,
     BreedListView,
     BreedUpdateView,
+    CaretakerCreateView,
+    CaretakerDeleteView,
     CaretakerDetailView,
     CaretakerListView,
+    CaretakerUpdateView,
     DogCreateView,
     DogDeleteView,
     DogDetailView,
@@ -67,6 +70,15 @@ urlpatterns = [
     ),
     path(
         "caretakers/<int:pk>/", CaretakerDetailView.as_view(), name="caretaker-detail"
+    ),
+    path(
+        "caretakers/create/", CaretakerCreateView.as_view(), name="caretaker-create"
+    ),
+    path(
+        "caretakers/<int:pk>/update/", CaretakerUpdateView.as_view(), name="caretaker-update"
+    ),
+    path(
+        "caretakers/<int:pk>/delete/", CaretakerDeleteView.as_view(), name="caretaker-delete"
     ),
     path(
         "vaccination/create/<int:dog_id>/", VaccinationCreateView.as_view(), name="vaccination-create"
