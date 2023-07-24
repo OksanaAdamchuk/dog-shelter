@@ -1,9 +1,11 @@
+from typing import Any, Dict
+from django.db.models.query import QuerySet
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse, reverse_lazy
 from django.views import generic
 from django.contrib.auth.mixins import LoginRequiredMixin
-from shelter.forms import CaretakerCreationForm, DogForm
+from shelter.forms import BreedSearchForm, CaretakerCreationForm, DogForm
 
 from shelter.models import Breed, Caretaker, Dog, Vaccination, Vaccine
 
@@ -23,7 +25,23 @@ class BreedListView(generic.ListView):
     model = Breed
     paginate_by = 15
     context_object_name = "breed_list"
-    queryset = Breed.objects.prefetch_related("dogs")
+
+    def get_context_data(self, **kwargs: Any) -> Dict[str, Any]:
+        context = super(BreedListView, self).get_context_data(**kwargs)
+        name = self.request.GET.get("name", "")
+        context["search_form"] = BreedSearchForm(initial={
+              "name": name  
+        })
+        return context
+    
+    def get_queryset(self) -> QuerySet[Any]:
+        queryset = Breed.objects.prefetch_related("dogs")
+        form = BreedSearchForm(self.request.GET)
+        if form.is_valid():
+            return queryset.filter(
+                name__icontains=form.cleaned_data["name"]
+            )
+        return queryset
 
 
 class BreedDetailView(generic.DetailView):

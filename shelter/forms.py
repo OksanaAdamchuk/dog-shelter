@@ -28,3 +28,12 @@ class CaretakerCreationForm(UserCreationForm):
     class Meta(UserCreationForm.Meta):
         model = Caretaker
         fields = UserCreationForm.Meta.fields + ("first_name", "last_name", "email", "expert_level")
+
+
+class BreedSearchForm(forms.Form):
+    name = forms.CharField(
+        max_length=100,
+        required=False,
+        label="",
+        widget=forms.TextInput(attrs={"placeholder": "search by breed name"})
+    )
