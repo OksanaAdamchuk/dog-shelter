@@ -9,11 +9,11 @@
     <li><a class="menu_item" href="{% url 'shelter:caretaker-list' %}">Caretakers</a></li>
     <li><a class="menu_item" href="{% url 'shelter:breed-list' %}">Breeds</a></li>
     {% if user.is_authenticated %}
-      <li><a class="menu_item" href="#">User: {{ user.username }}</a></li>
+      <li><a class="menu_item" href="{{ user.get_absolute_url }}">User: {{ user.username }}</a></li>
+      <li><a class="menu_item" href="{% url 'logout' %}">Logout</a></li>
     {% else %}
       <li><a class="menu_item" href="{% url 'login' %}">Login</a></li>
-      <li><a class="menu_item" href="{% url 'shelter:caretaker-create' %}">Sign Up</a></li>
+      <li><a class="menu_item" href="{% url 'shelter:caretaker-create' %}">Sign In</a></li>
     {% endif %}
-    <li><a class="menu_item" href="{% url 'logout' %}">Logout</a></li>
     </ul>
 </nav>

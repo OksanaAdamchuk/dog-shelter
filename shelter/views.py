@@ -6,7 +6,7 @@ from django.urls import reverse, reverse_lazy
 from django.views import generic
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth import get_user_model
-from shelter.forms import BreedSearchForm, CaretakerCreationForm, CaretakerSearchForm, DogForm, DogSearchForm
+from shelter.forms import BreedSearchForm, CaretakerCreationForm, CaretakerSearchForm, CaretakerUpdateForm, DogForm, DogSearchForm
 
 from shelter.models import Breed, Caretaker, Dog, Vaccination, Vaccine
 
@@ -184,11 +184,9 @@ class CaretakerCreateView(generic.CreateView):
         return self.object.get_absolute_url()
 
 
-
-
 class CaretakerUpdateView(LoginRequiredMixin, generic.UpdateView):
     model = Caretaker
-    form_class = CaretakerCreationForm
+    form_class = CaretakerUpdateForm
 
     def get_success_url(self):
         return self.object.get_absolute_url()
