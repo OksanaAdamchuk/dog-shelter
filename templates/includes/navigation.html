@@ -12,6 +12,7 @@
       <li><a class="menu_item" href="#">User: {{ user.username }}</a></li>
     {% else %}
       <li><a class="menu_item" href="{% url 'login' %}">Login</a></li>
+      <li><a class="menu_item" href="{% url 'shelter:caretaker-create' %}">Sign Up</a></li>
     {% endif %}
     <li><a class="menu_item" href="{% url 'logout' %}">Logout</a></li>
     </ul>

@@ -3,7 +3,7 @@ from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse, reverse_lazy
 from django.views import generic
 from django.contrib.auth.mixins import LoginRequiredMixin
-from shelter.forms import DogForm
+from shelter.forms import CaretakerCreationForm, DogForm
 
 from shelter.models import Breed, Caretaker, Dog, Vaccination, Vaccine
 
@@ -114,15 +114,15 @@ class CaretakerDetailView(LoginRequiredMixin, generic.DetailView):
     model = Caretaker
 
 
-class CaretakerCreateView(LoginRequiredMixin, generic.CreateView):
+class CaretakerCreateView(generic.CreateView):
     model = Caretaker
-    fields = ["username", "first_name", "last_name", "expert_level", "email"]
+    form_class = CaretakerCreationForm
     success_url = reverse_lazy("shelter:caretaker-list")
 
 
 class CaretakerUpdateView(LoginRequiredMixin, generic.UpdateView):
     model = Caretaker
-    fields = ["username", "first_name", "last_name", "expert_level", "email"]
+    form_class = CaretakerCreationForm
     success_url = reverse_lazy("shelter:caretaker-list")
 
 

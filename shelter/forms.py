@@ -1,5 +1,6 @@
 from django import forms
 from django.contrib.auth import get_user_model
+from django.contrib.auth.forms import UserCreationForm
 
 from shelter.models import Breed, Caretaker, Dog, Vaccine
 
@@ -21,3 +22,9 @@ class DogForm(forms.ModelForm):
             "breed",
             "caretakers"
         ]
+
+class CaretakerCreationForm(UserCreationForm):
+
+    class Meta(UserCreationForm.Meta):
+        model = Caretaker
+        fields = UserCreationForm.Meta.fields + ("first_name", "last_name", "email", "expert_level")
