@@ -1,5 +1,6 @@
 from django.contrib.auth import get_user_model
 from django.test import TestCase
+from django.urls import reverse
 
 from shelter.models import Breed, Dog, Vaccination, Vaccine
 
@@ -57,3 +58,21 @@ class ModelsTests(TestCase):
             (f"{self.caretaker.first_name} {self.caretaker.last_name} "
             f"({self.caretaker.username}, expert level: {self.caretaker.expert_level})")
         )
+
+    def test_breed_get_absolute_url(self) -> None:
+        url = self.breed.get_absolute_url()
+        expected_url = reverse("shelter:breed-detail", args=[str(self.breed.pk)])
+
+        self.assertEqual(url, expected_url)
+
+    def test_dog_get_absolute_url(self) -> None:
+        url = self.dog.get_absolute_url()
+        expected_url = reverse("shelter:dog-detail", args=[str(self.dog.pk)])
+
+        self.assertEqual(url, expected_url)
+
+    def test_caretaker_get_absolute_url(self) -> None:
+        url = self.caretaker.get_absolute_url()
+        expected_url = reverse("shelter:caretaker-detail", args=[str(self.caretaker.pk)])
+
+        self.assertEqual(url, expected_url)

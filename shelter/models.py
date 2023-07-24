@@ -67,7 +67,6 @@ class Vaccination(models.Model):
 
     def __str__(self) -> str:
         return f"{self.dog.name} ({self.vaccine.name}, {self.vaccination_date})"
-    
 
 
 class Caretaker(AbstractUser):
