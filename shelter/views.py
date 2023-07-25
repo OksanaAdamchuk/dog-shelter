@@ -1,12 +1,19 @@
 from typing import Any, Dict
 from django.db.models.query import QuerySet
 from django.http import HttpResponse
-from django.shortcuts import get_object_or_404, redirect, render
-from django.urls import reverse, reverse_lazy
+from django.shortcuts import get_object_or_404, render
+from django.urls import reverse_lazy
 from django.views import generic
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth import get_user_model
-from shelter.forms import BreedSearchForm, CaretakerCreationForm, CaretakerSearchForm, CaretakerUpdateForm, DogForm, DogSearchForm
+from shelter.forms import (
+    BreedSearchForm,
+    CaretakerCreationForm,
+    CaretakerSearchForm,
+    CaretakerUpdateForm,
+    DogForm,
+    DogSearchForm
+)
 
 from shelter.models import Breed, Caretaker, Dog, Vaccination, Vaccine
 
@@ -56,7 +63,6 @@ class BreedCreateView(LoginRequiredMixin, generic.CreateView):
     
     def get_success_url(self):
         return self.object.get_absolute_url()
-
 
 
 class BreedUpdateView(LoginRequiredMixin, generic.UpdateView):
