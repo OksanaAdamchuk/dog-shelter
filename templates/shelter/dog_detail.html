@@ -6,6 +6,18 @@
 
 {% block content %}
   <h1>{{ dog.name }}</h1>
+  {% if user.is_authenticated %}
+    <div>
+      <form action="" method="post" class="link-to-assign-user">
+        {% csrf_token %}
+        {% if user in dog.caretakers.all %}
+          <button  class="btn btn-danger">Delete me from caretakers</button>
+        {% else %}
+          <button class="btn btn-success">Add me to caretakers</button>
+        {% endif %}
+      </form>
+    </div>
+  {% endif %}
   <ul>
     {% if dog.age %}
     <li>Age: {{ dog.age }}</li>

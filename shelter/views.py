@@ -1,7 +1,7 @@
 from typing import Any, Dict
 from django.db.models.query import QuerySet
 from django.http import HttpResponse
-from django.shortcuts import get_object_or_404, render
+from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse_lazy
 from django.views import generic
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -132,6 +132,16 @@ class DogDetailView(generic.DetailView):
         vaccinations = Vaccination.objects.filter(dog=dog)
         context["vaccinations"] = vaccinations
         return context
+    
+    def post(self, request, pk):
+        user = request.user
+        dog = get_object_or_404(Dog, pk=pk)
+
+        if user in dog.caretakers.all():
+            dog.caretakers.remove(user)
+        else:
+            dog.caretakers.add(user)
+        return redirect("shelter:dog-detail", pk)
     
 
 class DogCreateView(LoginRequiredMixin, generic.CreateView):
