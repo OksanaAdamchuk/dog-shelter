@@ -1,9 +1,6 @@
 from django.contrib.auth import get_user_model
 from django.test import TestCase
 from django.urls import reverse
-from datetime import datetime
-
-from shelter.models import Breed
 
 
 CARETAKER_LIST_URL = reverse("shelter:caretaker-list")
