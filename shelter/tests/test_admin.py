@@ -8,30 +8,21 @@ from shelter.models import Breed, Dog, Vaccination, Vaccine
 class AdminSiteTests(TestCase):
     def setUp(self) -> None:
         self.admin_user = get_user_model().objects.create_superuser(
-            username="admin",
-            password="Password1234@"
+            username="admin", password="Password1234@"
         )
         self.client.force_login(self.admin_user)
         self.caretaker = get_user_model().objects.create_user(
             username="First Caretaker",
             password="Mypassword78#",
-            expert_level="Advanced"
+            expert_level="Advanced",
         )
-        self.breed = Breed.objects.create(
-            name="Pekiness",
-            dog_size="small"
-        )
+        self.breed = Breed.objects.create(name="Pekiness", dog_size="small")
         self.dog = Dog.objects.create(
-            name="Brovko",
-            date_registered="2023-06-20",
-            gender="male",
-            breed=self.breed
+            name="Brovko", date_registered="2023-06-20", gender="male", breed=self.breed
         )
         self.vaccine = Vaccine.objects.create(name="Flue")
         self.vaccination = Vaccination.objects.create(
-            dog=self.dog,
-            vaccine=self.vaccine,
-            vaccination_date="2023-06-30"
+            dog=self.dog, vaccine=self.vaccine, vaccination_date="2023-06-30"
         )
 
     def test_caretaker_expert_level_listed_on_detail_page(self) -> None:

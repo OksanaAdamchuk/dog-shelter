@@ -12,21 +12,16 @@ from shelter.forms import (
     CaretakerSearchForm,
     CaretakerUpdateForm,
     DogForm,
-    DogSearchForm
+    DogSearchForm,
 )
 
 from shelter.models import Breed, Caretaker, Dog, Vaccination, Vaccine
 
+
 def index(request) -> HttpResponse:
     number_of_dogs = Dog.objects.count()
-    context = {
-        "number_of_dogs": number_of_dogs
-    }
-    return render(
-        request,
-        "shelter/index.html",
-        context=context
-    )
+    context = {"number_of_dogs": number_of_dogs}
+    return render(request, "shelter/index.html", context=context)
 
 
 class BreedListView(generic.ListView):
@@ -37,18 +32,14 @@ class BreedListView(generic.ListView):
     def get_context_data(self, **kwargs: Any) -> Dict[str, Any]:
         context = super(BreedListView, self).get_context_data(**kwargs)
         name = self.request.GET.get("name", "")
-        context["search_form"] = BreedSearchForm(initial={
-              "name": name  
-        })
+        context["search_form"] = BreedSearchForm(initial={"name": name})
         return context
-    
+
     def get_queryset(self) -> QuerySet[Any]:
         queryset = Breed.objects.prefetch_related("dogs")
         form = BreedSearchForm(self.request.GET)
         if form.is_valid():
-            return queryset.filter(
-                name__icontains=form.cleaned_data["name"]
-            )
+            return queryset.filter(name__icontains=form.cleaned_data["name"])
         return queryset
 
 
@@ -60,7 +51,7 @@ class BreedDetailView(generic.DetailView):
 class BreedCreateView(LoginRequiredMixin, generic.CreateView):
     model = Breed
     fields = "__all__"
-    
+
     def get_success_url(self):
         return self.object.get_absolute_url()
 
@@ -108,18 +99,14 @@ class DogListView(generic.ListView):
     def get_context_data(self, **kwargs: Any) -> Dict[str, Any]:
         context = super(DogListView, self).get_context_data(**kwargs)
         name = self.request.GET.get("name", "")
-        context["search_form"] = DogSearchForm(initial={
-              "name": name  
-        })
+        context["search_form"] = DogSearchForm(initial={"name": name})
         return context
-    
+
     def get_queryset(self) -> QuerySet[Any]:
         queryset = Dog.objects.select_related("breed")
         form = DogSearchForm(self.request.GET)
         if form.is_valid():
-            return queryset.filter(
-                name__icontains=form.cleaned_data["name"]
-            )
+            return queryset.filter(name__icontains=form.cleaned_data["name"])
         return queryset
 
 
@@ -132,7 +119,7 @@ class DogDetailView(generic.DetailView):
         vaccinations = Vaccination.objects.filter(dog=dog)
         context["vaccinations"] = vaccinations
         return context
-    
+
     def post(self, request, pk):
         user = request.user
         dog = get_object_or_404(Dog, pk=pk)
@@ -142,7 +129,7 @@ class DogDetailView(generic.DetailView):
         else:
             dog.caretakers.add(user)
         return redirect("shelter:dog-detail", pk)
-    
+
 
 class DogCreateView(LoginRequiredMixin, generic.CreateView):
     model = Dog
@@ -173,18 +160,14 @@ class CaretakerListView(LoginRequiredMixin, generic.ListView):
     def get_context_data(self, **kwargs: Any) -> Dict[str, Any]:
         context = super(CaretakerListView, self).get_context_data(**kwargs)
         username = self.request.GET.get("username", "")
-        context["search_form"] = CaretakerSearchForm(initial={
-              "username": username  
-        })
+        context["search_form"] = CaretakerSearchForm(initial={"username": username})
         return context
-    
+
     def get_queryset(self) -> QuerySet[Any]:
         queryset = get_user_model().objects.all()
         form = CaretakerSearchForm(self.request.GET)
         if form.is_valid():
-            return queryset.filter(
-                username__icontains=form.cleaned_data["username"]
-            )
+            return queryset.filter(username__icontains=form.cleaned_data["username"])
         return queryset
 
 
@@ -216,14 +199,14 @@ class CaretakerDeleteView(LoginRequiredMixin, generic.DeleteView):
 class VaccinationCreateView(LoginRequiredMixin, generic.CreateView):
     model = Vaccination
     fields = ["vaccine", "vaccination_date"]
-    
+
     def get_success_url(self):
         dog = self.object.dog
 
         return dog.get_absolute_url()
 
     def form_valid(self, form):
-        dog_id = self.kwargs["dog_id"]  
+        dog_id = self.kwargs["dog_id"]
         dog = get_object_or_404(Dog, id=dog_id)
         form.instance.dog = dog
 
@@ -240,14 +223,14 @@ class VaccinationCreateView(LoginRequiredMixin, generic.CreateView):
 class VaccinationUpdateView(LoginRequiredMixin, generic.UpdateView):
     model = Vaccination
     fields = ["vaccine", "vaccination_date"]
-    
+
     def get_success_url(self):
         dog = self.object.dog
 
         return dog.get_absolute_url()
 
     def form_valid(self, form):
-        dog_id = self.kwargs["dog_id"]  
+        dog_id = self.kwargs["dog_id"]
         dog = get_object_or_404(Dog, id=dog_id)
         form.instance.dog = dog
 
@@ -267,12 +250,12 @@ class VaccinationUpdateView(LoginRequiredMixin, generic.UpdateView):
 
 class VaccinationDeleteView(LoginRequiredMixin, generic.DeleteView):
     model = Vaccination
-    
+
     def get_success_url(self):
         dog = self.object.dog
 
         return dog.get_absolute_url()
-    
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         dog_id = self.kwargs["dog_id"]

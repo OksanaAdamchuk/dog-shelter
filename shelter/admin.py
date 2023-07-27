@@ -15,13 +15,16 @@ class BreedAdmin(admin.ModelAdmin):
 @admin.register(Caretaker)
 class CaretakerAdmin(UserAdmin):
     list_per_page = 10
-    list_display = UserAdmin.list_display + ("expert_level", )
+    list_display = UserAdmin.list_display + ("expert_level",)
     fieldsets = UserAdmin.fieldsets + (
-        ("Extra Fields", {
-            "fields": ("expert_level",),
-            "description": "Choose level from begginer ('I never care about dog before') to "
-            "expert ('I have professional experience in taking care of dogs')"
-        }),
+        (
+            "Extra Fields",
+            {
+                "fields": ("expert_level",),
+                "description": "Choose level from begginer ('I never care about dog before') to "
+                "expert ('I have professional experience in taking care of dogs')",
+            },
+        ),
     )
     add_fieldsets = UserAdmin.add_fieldsets + (
         ("Additional info", {"fields": ("first_name", "last_name", "expert_level")}),
@@ -37,14 +40,12 @@ class DogAdmin(admin.ModelAdmin):
     list_select_related = ["breed"]
 
 
-
 @admin.register(Vaccination)
 class VaccinationAdmin(admin.ModelAdmin):
     list_display = ["vaccine", "vaccination_date", "dog"]
     list_per_page = 10
     list_filter = ["vaccination_date"]
     search_fields = ["vaccine__name"]
-
 
 
 admin.site.register(Vaccine)

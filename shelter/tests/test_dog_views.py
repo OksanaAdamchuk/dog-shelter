@@ -8,25 +8,23 @@ from shelter.models import Breed, Dog
 
 DOG_LIST_URL = reverse("shelter:dog-list")
 
+
 class PublicDogTests(TestCase):
     def setUp(self) -> None:
-        self.breed = Breed.objects.create(
-            name="Pekiness",
-            dog_size="small"
-        )
+        self.breed = Breed.objects.create(name="Pekiness", dog_size="small")
         self.dog = Dog.objects.create(
             name="Brovko",
             age="7 months",
             date_registered="2023-06-20",
             gender="male",
-            breed=self.breed
+            breed=self.breed,
         )
         self.dog1 = Dog.objects.create(
             name="Fluffy",
             age="7 years",
             date_registered="2023-06-21",
             gender="female",
-            breed=self.breed
+            breed=self.breed,
         )
 
     def test_login_required_to_create_dog(self) -> None:
@@ -35,12 +33,16 @@ class PublicDogTests(TestCase):
         self.assertNotEqual(response.status_code, 200)
 
     def test_login_required_to_update_dog(self) -> None:
-        response = self.client.get(reverse("shelter:dog-update", kwargs={"pk": self.dog.pk}))
+        response = self.client.get(
+            reverse("shelter:dog-update", kwargs={"pk": self.dog.pk})
+        )
 
         self.assertNotEqual(response.status_code, 200)
-    
+
     def test_login_required_to_delete_dog(self) -> None:
-        response = self.client.get(reverse("shelter:dog-delete", kwargs={"pk": self.dog.pk}))
+        response = self.client.get(
+            reverse("shelter:dog-delete", kwargs={"pk": self.dog.pk})
+        )
 
         self.assertNotEqual(response.status_code, 200)
 
@@ -61,7 +63,7 @@ class PublicDogTests(TestCase):
                 age="7 months",
                 date_registered="2023-06-20",
                 gender="male",
-                breed=self.breed
+                breed=self.breed,
             )
         response = self.client.get(DOG_LIST_URL)
         self.assertEqual(response.status_code, 200)
@@ -78,7 +80,7 @@ class PublicDogTests(TestCase):
                 age="7 months",
                 date_registered="2023-06-20",
                 gender="male",
-                breed=self.breed
+                breed=self.breed,
             )
         response = self.client.get(DOG_LIST_URL + "?page=2")
         self.assertEqual(response.status_code, 200)
@@ -94,7 +96,9 @@ class PublicDogTests(TestCase):
         self.assertEqual(list(response.context["dog_list"]), list(dogs))
 
     def test_detail_dog_page_context(self) -> None:
-        response = self.client.get(reverse("shelter:dog-detail", kwargs={"pk": self.dog.pk}))
+        response = self.client.get(
+            reverse("shelter:dog-detail", kwargs={"pk": self.dog.pk})
+        )
         dog_test = Dog.objects.get(pk=1)
 
         self.assertEqual(response.status_code, 200)
@@ -104,23 +108,17 @@ class PublicDogTests(TestCase):
 
 class PrivateDogTests(TestCase):
     def setUp(self) -> None:
-        self.user = get_user_model().objects.create_user(
-            "test",
-            "password1234@"
-        )
+        self.user = get_user_model().objects.create_user("test", "password1234@")
         self.client.force_login(self.user)
         super().setUp()
-        self.breed = Breed.objects.create(
-            name="Pekiness",
-            dog_size="small"
-        )
+        self.breed = Breed.objects.create(name="Pekiness", dog_size="small")
 
         self.dog = Dog.objects.create(
             name="Brovko",
             age="7 months",
             date_registered="2023-06-20",
             gender="male",
-            breed=self.breed
+            breed=self.breed,
         )
 
     def test_logined_user_has_access_to_create_dog(self) -> None:
@@ -129,12 +127,16 @@ class PrivateDogTests(TestCase):
         self.assertEqual(response.status_code, 200)
 
     def test_logined_user_has_access_to_update_dog(self) -> None:
-        response = self.client.get(reverse("shelter:dog-update", kwargs={"pk": self.dog.pk}))
+        response = self.client.get(
+            reverse("shelter:dog-update", kwargs={"pk": self.dog.pk})
+        )
 
         self.assertEqual(response.status_code, 200)
-    
+
     def test_logined_user_has_access_to_delete_dog(self) -> None:
-        response = self.client.get(reverse("shelter:dog-delete", kwargs={"pk": self.dog.pk}))
+        response = self.client.get(
+            reverse("shelter:dog-delete", kwargs={"pk": self.dog.pk})
+        )
 
         self.assertEqual(response.status_code, 200)
 
@@ -147,16 +149,15 @@ class PrivateDogTests(TestCase):
             "gender": "male",
             "breed": self.breed.id,
         }
-        response = self.client.post(reverse("shelter:dog-create"), data=data, follow=True)
+        response = self.client.post(
+            reverse("shelter:dog-create"), data=data, follow=True
+        )
 
         self.assertEqual(response.status_code, 200)
         self.assertTrue(Dog.objects.filter(name="Test dog").exists())
 
     def test_unsuccessful_dog_creation(self) -> None:
-        breed = Breed.objects.create(
-            name="Alabai",
-            dog_size="giant"
-        )
+        breed = Breed.objects.create(name="Alabai", dog_size="giant")
         data = {
             "name": "Test dog",
             "age": "5 months",
@@ -177,10 +178,7 @@ class PrivateDogTests(TestCase):
         self.assertRedirects(response, "/accounts/login/?next=/shelter/dogs/create/")
 
     def test_redirection_after_dog_creation(self) -> None:
-        breed = Breed.objects.create(
-            name="Alabai",
-            dog_size="giant"
-        )
+        breed = Breed.objects.create(name="Alabai", dog_size="giant")
         data = {
             "name": "Test dog",
             "age": "5 months",
@@ -188,16 +186,15 @@ class PrivateDogTests(TestCase):
             "gender": "male",
             "breed": breed.id,
         }
-        response = self.client.post(reverse("shelter:dog-create"), data=data, follow=True)
+        response = self.client.post(
+            reverse("shelter:dog-create"), data=data, follow=True
+        )
 
         dog = Dog.objects.get(name="Test dog")
         self.assertRedirects(response, dog.get_absolute_url())
 
     def test_successful_dog_update(self) -> None:
-        breed = Breed.objects.create(
-            name="Alabai",
-            dog_size="giant"
-        )
+        breed = Breed.objects.create(name="Alabai", dog_size="giant")
         data = {
             "name": "Updated dog",
             "age": "5 months",
@@ -205,7 +202,11 @@ class PrivateDogTests(TestCase):
             "gender": "male",
             "breed": breed.id,
         }
-        response = self.client.post(reverse("shelter:dog-update", kwargs={"pk": self.dog.pk}), data=data, follow=True)
+        response = self.client.post(
+            reverse("shelter:dog-update", kwargs={"pk": self.dog.pk}),
+            data=data,
+            follow=True,
+        )
 
         self.assertEqual(response.status_code, 200)
         self.dog.refresh_from_db()
@@ -214,10 +215,7 @@ class PrivateDogTests(TestCase):
         self.assertEqual(self.dog.date_registered, expected_date)
 
     def test_unsuccessful_dog_update(self) -> None:
-        breed = Breed.objects.create(
-            name="Alabai",
-            dog_size="giant"
-        )
+        breed = Breed.objects.create(name="Alabai", dog_size="giant")
         data = {
             "name": "Updated dog",
             "age": "5 months",
@@ -225,7 +223,11 @@ class PrivateDogTests(TestCase):
             "gender": "",
             "breed": breed.id,
         }
-        response = self.client.post(reverse("shelter:dog-update", kwargs={"pk": self.dog.pk}), data=data, follow=True)
+        response = self.client.post(
+            reverse("shelter:dog-update", kwargs={"pk": self.dog.pk}),
+            data=data,
+            follow=True,
+        )
         self.assertEqual(response.status_code, 200)
         self.dog.refresh_from_db()
         self.assertContains(response, "This field is required.")
@@ -235,16 +237,15 @@ class PrivateDogTests(TestCase):
 
     def test_update_anonymous_user_redirect(self) -> None:
         self.client.logout()
-        response = self.client.get(reverse("shelter:dog-update", kwargs={"pk": self.dog.pk}))
+        response = self.client.get(
+            reverse("shelter:dog-update", kwargs={"pk": self.dog.pk})
+        )
 
         self.assertEqual(response.status_code, 302)
         self.assertRedirects(response, "/accounts/login/?next=/shelter/dogs/1/update/")
 
     def test_redirection_after_dog_update(self) -> None:
-        breed = Breed.objects.create(
-            name="Alabai",
-            dog_size="giant"
-        )
+        breed = Breed.objects.create(name="Alabai", dog_size="giant")
         data = {
             "name": "Updated dog",
             "age": "5 months",
@@ -252,47 +253,51 @@ class PrivateDogTests(TestCase):
             "gender": "male",
             "breed": breed.id,
         }
-        response = self.client.post(reverse("shelter:dog-update", kwargs={"pk": self.dog.pk}), data=data, follow=True)
+        response = self.client.post(
+            reverse("shelter:dog-update", kwargs={"pk": self.dog.pk}),
+            data=data,
+            follow=True,
+        )
 
         dog = Dog.objects.get(name="Updated dog")
         self.assertRedirects(response, dog.get_absolute_url())
 
     def test_successful_dog_deletion(self) -> None:
-        breed = Breed.objects.create(
-            name="Alabai",
-            dog_size="giant"
-        )
+        breed = Breed.objects.create(name="Alabai", dog_size="giant")
         dog1 = Dog.objects.create(
             name="Brovko1",
             age="7 months",
             date_registered="2023-06-20",
             gender="male",
-            breed=breed
+            breed=breed,
         )
-        response = self.client.post(reverse("shelter:dog-delete", kwargs={"pk": dog1.pk}), follow=True)
+        response = self.client.post(
+            reverse("shelter:dog-delete", kwargs={"pk": dog1.pk}), follow=True
+        )
 
         self.assertEqual(response.status_code, 200)
         self.assertFalse(Dog.objects.filter(pk=dog1.pk).exists())
 
     def test_delete_dog_anonymous_user_redirect(self) -> None:
         self.client.logout()
-        response = self.client.get(reverse("shelter:dog-delete", kwargs={"pk": self.dog.pk}))
-        
+        response = self.client.get(
+            reverse("shelter:dog-delete", kwargs={"pk": self.dog.pk})
+        )
+
         self.assertEqual(response.status_code, 302)
         self.assertRedirects(response, "/accounts/login/?next=/shelter/dogs/1/delete/")
 
     def test_redirection_after_dog_delete(self) -> None:
-        breed = Breed.objects.create(
-            name="Alabai",
-            dog_size="giant"
-        )
+        breed = Breed.objects.create(name="Alabai", dog_size="giant")
         dog1 = Dog.objects.create(
             name="Brovko1",
             age="7 months",
             date_registered="2023-06-20",
             gender="male",
-            breed=breed
+            breed=breed,
         )
-        response = self.client.post(reverse("shelter:dog-delete", kwargs={"pk": dog1.pk}), follow=True)
+        response = self.client.post(
+            reverse("shelter:dog-delete", kwargs={"pk": dog1.pk}), follow=True
+        )
 
         self.assertRedirects(response, reverse("shelter:dog-list"))

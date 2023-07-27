@@ -19,17 +19,17 @@ class Breed(models.Model):
 
     def __str__(self) -> str:
         return self.name
-    
+
     def get_absolute_url(self):
         return reverse("shelter:breed-detail", args=[str(self.pk)])
-    
+
 
 class Vaccine(models.Model):
     name = models.CharField(max_length=255)
 
     class Meta:
         ordering = ["name"]
-    
+
     def __str__(self) -> str:
         return self.name
 
@@ -45,7 +45,9 @@ class Dog(models.Model):
     sterilized = models.BooleanField(default=False)
     gender = models.CharField(max_length=6, choices=DOG_GENDERS)
     breed = models.ForeignKey(Breed, on_delete=models.PROTECT, related_name="dogs")
-    vaccines = models.ManyToManyField(Vaccine, through="Vaccination", related_name="dogs")
+    vaccines = models.ManyToManyField(
+        Vaccine, through="Vaccination", related_name="dogs"
+    )
     caretakers = models.ManyToManyField(
         settings.AUTH_USER_MODEL, related_name="dogs", blank=True
     )
@@ -55,7 +57,7 @@ class Dog(models.Model):
 
     def __str__(self) -> str:
         return f"{self.name} ({self.breed}, {self.age})"
-    
+
     def get_absolute_url(self):
         return reverse("shelter:dog-detail", args=[str(self.pk)])
 
@@ -77,9 +79,7 @@ class Caretaker(AbstractUser):
         ("expert", "Expert"),
     ]
     expert_level = models.CharField(
-        max_length=20,
-        choices=EXPERT_LEVELS,
-        default="beginner"
+        max_length=20, choices=EXPERT_LEVELS, default="beginner"
     )
 
     class Meta:

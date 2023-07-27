@@ -12,24 +12,19 @@ class ModelsTests(TestCase):
             first_name="FirstName",
             last_name="LastName",
             password="Mypassword78#",
-            expert_level="Advanced"
+            expert_level="Advanced",
         )
-        self.breed = Breed.objects.create(
-            name="Pekiness",
-            dog_size="small"
-        )
+        self.breed = Breed.objects.create(name="Pekiness", dog_size="small")
         self.dog = Dog.objects.create(
             name="Brovko",
             age="7 months",
             date_registered="2023-06-20",
             gender="male",
-            breed=self.breed
+            breed=self.breed,
         )
         self.vaccine = Vaccine.objects.create(name="Flue")
         self.vaccination = Vaccination.objects.create(
-            dog=self.dog,
-            vaccine=self.vaccine,
-            vaccination_date="2023-06-30"
+            dog=self.dog, vaccine=self.vaccine, vaccination_date="2023-06-30"
         )
 
     def test_breed_str(self) -> None:
@@ -40,23 +35,24 @@ class ModelsTests(TestCase):
 
     def test_dog_str(self) -> None:
         self.assertEqual(
-            str(self.dog),
-            f"{self.dog.name} ({self.dog.breed}, {self.dog.age})"
-        )   
+            str(self.dog), f"{self.dog.name} ({self.dog.breed}, {self.dog.age})"
+        )
 
     def test_vaccination_str(self) -> None:
         self.assertEqual(
             str(self.vaccination),
             f"{self.vaccination.dog.name} "
             f"({self.vaccination.vaccine.name}, "
-            f"{self.vaccination.vaccination_date})"
+            f"{self.vaccination.vaccination_date})",
         )
-    
+
     def test_caretaker_str(self) -> None:
         self.assertEqual(
             str(self.caretaker),
-            (f"{self.caretaker.first_name} {self.caretaker.last_name} "
-            f"({self.caretaker.username}, expert level: {self.caretaker.expert_level})")
+            (
+                f"{self.caretaker.first_name} {self.caretaker.last_name} "
+                f"({self.caretaker.username}, expert level: {self.caretaker.expert_level})"
+            ),
         )
 
     def test_breed_get_absolute_url(self) -> None:
@@ -73,6 +69,8 @@ class ModelsTests(TestCase):
 
     def test_caretaker_get_absolute_url(self) -> None:
         url = self.caretaker.get_absolute_url()
-        expected_url = reverse("shelter:caretaker-detail", args=[str(self.caretaker.pk)])
+        expected_url = reverse(
+            "shelter:caretaker-detail", args=[str(self.caretaker.pk)]
+        )
 
         self.assertEqual(url, expected_url)
