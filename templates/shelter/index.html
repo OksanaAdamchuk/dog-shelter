@@ -5,13 +5,23 @@
 {% endblock %}
 
 {% block content %}
+<div class="mb-5">
+
   <h2>Find Your Furry Friend: Adopt or Caretake Today!</h2>
-  <p>Currently in our shelter we have {{ number_of_dogs }} dogs</p>
-  <p>Welcome to our Dog Shelter! We are more than just a place for adorable, lovable pups; we are a compassionate community dedicated to finding forever homes for our furry friends. At our shelter, you have the unique opportunity to not only adopt a dog but also become a part-time caretaker for these precious canines. We believe that everyone should experience the joy and love that a dog brings, even if they can't commit to full-time ownership.</p>
-  <p><strong>Meet Our Furry Family: Adoption Made Heartwarming</strong> For those who are ready to welcome a new furry family member into their home, our adoption process is simple and rewarding. Our website showcases a delightful gallery of dogs of all shapes, sizes, and personalities, each with a heartwarming story waiting to be discovered. You can browse through our canine companions, read their profiles, and see if any of them tugs at your heartstrings. When you've found a match, you can apply for adoption, and our caring team will guide you through the process to ensure a smooth transition into your home.</p>
-  <p><strong>Caretaker Program: Be a Guardian Angel to Our Dogs</strong> If having a dog at home full-time is not feasible for you but you still want to make a meaningful impact in a pup's life, our caretaker program offers a unique opportunity to become a guardian angel for our dogs in need. As a registered caretaker, you can choose a dog to support and care for, even if it's just for a few days or weeks. Our dogs often require extra attention during times of illness or when they need specialized care. Instead of public donation requests, we will reach out to you with the specific needs of your chosen dog, be it medical expenses, medication, or a visit to the veterinarian. Your contribution will make a direct and personal difference in the life of your chosen furry friend.</p>
-  <p><strong>Together, We Thrive: Shared Responsibility for Happiness</strong> We embrace the idea of teamwork and know that a dog's well-being thrives with love from many hearts. Therefore, our dogs can have multiple caretakers, and as a team, you can create a schedule for walking and spending quality time with your chosen canine companion. We believe in shared responsibility, and together, we can ensure that every dog experiences the joy of daily walks and tender care, whether they are in our shelter awaiting adoption or have already found their forever home.</p>
-  <p><strong>Paws for Love: Uniting Hearts and Wagging Tails</strong> At our Dog Shelter, we are passionate about bringing joy, happiness, and the healing power of love to every dog and human we touch. Join us in our mission to make the world a better place, one wagging tail at a time. Together, we can create a harmonious haven for dogs and a nurturing community of dog lovers. Thank you for being a part of our journey!</p>
-  
+
+  <div class="card mb-3 card-transparent" style="background-color: transparent;">
+    <div class="row g-0">
+      <div class="col-md-1 side-line" style="border-left: 6px solid rgb(99, 8, 8);">
+      </div>
+      <div class="col-md-10">
+        <div class="card-body">
+          <h5 class="card-title">Welcome to our Dog Shelter!</h5>
+          <p class="card-text">We are more than just a place for adorable, lovable pups; we are a compassionate community dedicated to finding forever homes for our furry friends. At our shelter, you have the unique opportunity to not only adopt a dog but also become a part-time caretaker for these precious canines. We believe that everyone should experience the joy and love that a dog brings, even if they can't commit to full-time ownership.</p>
+          <p class="card-text">Currently in our shelter we have <strong>{{ number_of_dogs }}</strong> dogs</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>  
 
 {% endblock %}

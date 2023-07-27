@@ -6,9 +6,9 @@
 
 {% block content %}
 
-  <h1>Delete breed "{{ breed.name }}"?</h1>
+  <h2>Delete breed "{{ breed.name }}"?</h2>
   <p>You can't delete it while there are dogs of this breed in the shelter.</p>
-  <form action="" method="post">
+  <form action="" method="post" class="delete-form">
     {% csrf_token %}
 
     <input type="submit" value="Yes" class="btn btn-danger">

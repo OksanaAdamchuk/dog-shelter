@@ -5,23 +5,33 @@
 {% endblock %}
 
 {% block content %}
-  <h1>Vaccines list</h1>
-  <p>
-    <a href="{% url 'shelter:vaccine-create' %}">add new</a>
-  </p>
+  <h2>Vaccines list</h2>
+    <a href="{% url 'shelter:vaccine-create' %}" class="adding-link btn btn-dark">add new vaccine</a>
   {% if vaccine_list %}
-  <p>In our shelter we vaccinate our dogs with next vaccines:</p>
-  <ul>
-    {% for vaccine in vaccine_list %}
-    <li>{{ vaccine.name }}
-      <a href="{% url 'shelter:vaccine-update' pk=vaccine.id %}">Update</a>
-      <a href="{% url 'shelter:vaccine-delete' pk=vaccine.id %}">Delete</a>
-    </li>
-    
-    {% endfor %}
-  </ul>
+  
+  <div class="table-container">
+    <p>In our shelter we vaccinate our dogs with next vaccines:</p>
+    <table class="table table-striped table-sm">
+      <thead>
+        <tr>
+          <th scope="col">Vaccine Name</th>
+          <th scope="col">Update</th>
+          <th scope="col">Delete</th>
+        </tr>
+      </thead>
+      <tbody class="table-group-divider">
+        {% for vaccine in vaccine_list %}
+          <tr>
+            <td>{{ vaccine.name }}</td>
+            <td><a href="{% url 'shelter:vaccine-update' pk=vaccine.id %}">Update</a></td>
+            <td><a href="{% url 'shelter:vaccine-delete' pk=vaccine.id %}">Delete</a></td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
   {% else %}
-    <p>We didn't vaccinated dogs yet</p>
+    <p>We didn't vaccinate dogs yet</p>
   {% endif %}
 
 {% endblock %}

@@ -6,8 +6,8 @@
 
 {% block content %}
 
-  <h1>Delete vaccine "{{ vaccine.name }}"?</h1>
-  <form action="" method="post">
+  <h2>Delete vaccine "{{ vaccine.name }}"?</h2>
+  <form action="" method="post" class="delete-form">
     {% csrf_token %}
 
     <input type="submit" value="Yes" class="btn btn-danger">

@@ -5,7 +5,7 @@
 {% endblock %}
 
 {% block content %}
-  <h1>{{ breed.name }} ({{ breed.dog_size }}-size dogs)</h1>
+  <h2>{{ breed.name }} ({{ breed.dog_size }}-size dogs)</h2>
   <p>
     <a href="{% url 'shelter:breed-update' pk=breed.id %}">Update</a>
     <a href="{% url 'shelter:breed-delete' pk=breed.id %}">Delete</a>

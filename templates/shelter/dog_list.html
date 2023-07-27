@@ -5,11 +5,14 @@
 {% endblock %}
 
 {% block content %}
-  <h1>Our dogs</h1>
+  <h2>Our dogs</h2>
+  <h3>Meet Our Furry Family: Adoption Made Heartwarming</h3> 
+  <p>For those who are ready to welcome a new furry family member into their home, our adoption process is simple and rewarding. Our website showcases a delightful gallery of dogs of all shapes, sizes, and personalities, each with a heartwarming story waiting to be discovered. You can browse through our canine companions, read their profiles, and see if any of them tugs at your heartstrings. When you've found a match, you can apply for adoption, and our caring team will guide you through the process to ensure a smooth transition into your home.</p>
+  <a href="{% url 'shelter:dog-create' %}" class="adding-link btn btn-dark">Add new dog</a>
   {% block search_form %}
     {% include "includes/search_form.html" %}
   {% endblock %}
-  <p><a href="{% url 'shelter:dog-create' %}">Add new dog +</a></p>
+  
   <div class="card-container">
   {% if dog_list %}
     {% for dog in dog_list %}

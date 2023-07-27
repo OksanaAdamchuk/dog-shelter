@@ -8,15 +8,15 @@
 
 {% block content %}
 
-  <h1>{{ object|yesno:"Update,Create new" }} vaccination for {{ dog.name }}</h1>
+  <h2>{{ object|yesno:"Update,Create new" }} vaccination for {{ dog.name }}</h2>
   <form action="" method="post" novalidate>
     {% csrf_token %}
     {{ form|crispy }}
     <input type="submit" value="Submit" class="btn btn-secondary">
     {% if object %}
-      <a href="{{ dog.get_absolute_url }}" class="btn btn-secondary">Cancel</a>
+      <a href="{{ dog.get_absolute_url }}" class="btn btn-danger">Cancel</a>
     {% else %}
-    <a href="{% url 'shelter:dog-list' %}" class="btn btn-secondary">Cancel</a>
+    <a href="{% url 'shelter:dog-list' %}" class="btn btn-danger">Cancel</a>
     {% endif %}
   </form>
 

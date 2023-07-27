@@ -5,10 +5,10 @@
 {% endblock %}
 
 {% block content %}
-  <h1>{{ dog.name }}</h1>
+  <h2>{{ dog.name }}</h2>
   {% if user.is_authenticated %}
     <div>
-      <form action="" method="post" class="link-to-assign-user">
+      <form action="" method="post" class="adding-link">
         {% csrf_token %}
         {% if user in dog.caretakers.all %}
           <button  class="btn btn-danger">Delete me from caretakers</button>

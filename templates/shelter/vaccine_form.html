@@ -1,6 +1,5 @@
 {% extends "base.html" %}
 {% load crispy_forms_filters %}
-{% load crispy_forms_tags %}
 
 {% block title %}
   <title>{{ object|yesno:"Update,Create" }} vaccine</title>
@@ -8,12 +7,12 @@
 
 {% block content %}
 
-  <h1>{{ object|yesno:"Update,Create new" }} vaccine</h1>
+  <h2>{{ object|yesno:"Update,Create new" }} vaccine</h2>
   <form action="" method="post" novalidate>
     {% csrf_token %}
     {{ form|crispy }}
     <input type="submit" value="Submit" class="btn btn-secondary">
-    <a href="{% url 'shelter:vaccine-list' %}" class="btn btn-secondary">Cancel</a>
+    <a href="{% url 'shelter:vaccine-list' %}" class="btn btn-danger">Cancel</a>
   </form>
 
 {% endblock %}

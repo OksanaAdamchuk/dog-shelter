@@ -5,10 +5,14 @@
 {% endblock %}
 
 {% block content %}
-  <h1>Our caretakers</h1>
+  <h2>Our caretakers</h2>
+  <h3>Caretaker Program: Be a Guardian Angel to Our Dogs</h3> 
+  <p>If having a dog at home full-time is not feasible for you but you still want to make a meaningful impact in a pup's life, our caretaker program offers a unique opportunity to become a guardian angel for our dogs in need. As a registered caretaker, you can choose a dog to support and care for, even if it's just for a few days or weeks. Our dogs often require extra attention during times of illness or when they need specialized care. Instead of public donation requests, we will reach out to you with the specific needs of your chosen dog, be it medical expenses, medication, or a visit to the veterinarian. Your contribution will make a direct and personal difference in the life of your chosen furry friend.</p>
+
   {% block search_form %}
     {% include "includes/search_form.html" %}
   {% endblock %}
+  
   <div>
   {% if caretaker_list %}
     <ol>
