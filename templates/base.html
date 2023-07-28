@@ -13,22 +13,21 @@
   <link rel="stylesheet" href="{% static 'css/styles.css' %}">
 </head>
 <body>
-
-    <header>
-      {% block header %}
-        {% include "includes/navigation.html" %}
-      {% endblock %}
-    </header>
-    <div class="container">
-      {% block content %} {% endblock %}
-      {% block pagination %}
-        {% include "includes/pagination.html" %}
-      {% endblock %}
-    </div>
-    <footer>
-      {% block footer %}
-        {% include "includes/footer.html" %}
-      {% endblock %}
-    </footer>
+  <header>
+    {% block header %}
+      {% include "includes/navigation.html" %}
+    {% endblock %}
+  </header>
+  <div class="container">
+    {% block content %} {% endblock %}
+    {% block pagination %}
+      {% include "includes/pagination.html" %}
+    {% endblock %}
+  </div>
+  <footer>
+    {% block footer %}
+      {% include "includes/footer.html" %}
+    {% endblock %}
+  </footer>
 </body>
 </html>

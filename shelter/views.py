@@ -3,7 +3,7 @@ from django.db.models.query import QuerySet
 from django.http import HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.urls import reverse_lazy
-from django.views import generic
+from django.views import View, generic
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth import get_user_model
 from shelter.forms import (
@@ -18,10 +18,11 @@ from shelter.forms import (
 from shelter.models import Breed, Caretaker, Dog, Vaccination, Vaccine
 
 
-def index(request) -> HttpResponse:
-    number_of_dogs = Dog.objects.count()
-    context = {"number_of_dogs": number_of_dogs}
-    return render(request, "shelter/index.html", context=context)
+class IndexView(View):
+    def get(self, request, *args, **kwargs) -> HttpResponse:
+        number_of_dogs = Dog.objects.count()
+        context = {"number_of_dogs": number_of_dogs}
+        return render(request, "shelter/index.html", context=context)
 
 
 class BreedListView(generic.ListView):

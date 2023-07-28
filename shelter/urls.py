@@ -16,6 +16,7 @@ from shelter.views import (
     DogDetailView,
     DogListView,
     DogUpdateView,
+    IndexView,
     VaccineCreateView,
     VaccineDeleteView,
     VaccineUpdateView,
@@ -23,11 +24,10 @@ from shelter.views import (
     VaccinationCreateView,
     VaccinationDeleteView,
     VaccinationUpdateView,
-    index,
 )
 
 urlpatterns = [
-    path("", index, name="index"),
+    path("", IndexView.as_view(), name="index"),
     path("breeds/", BreedListView.as_view(), name="breed-list"),
     path("breeds/<int:pk>/", BreedDetailView.as_view(), name="breed-detail"),
     path("breeds/<int:pk>/update/", BreedUpdateView.as_view(), name="breed-update"),
