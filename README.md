@@ -19,7 +19,7 @@ pip install -r requirements.txt
 python manage.py runserver  # starts Django Server
 ```
 
-Now you can open the application in your web browser: http://localhost:8000/shelter/
+Now you can open the application in your web browser: http://localhost:8000/
 
 To receive access to all pages you can use test user credentials:
 
