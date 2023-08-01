@@ -4,7 +4,7 @@ The Dog Shelter is a web application built using Python Django that helps the ad
 
 ## Check it out!
 
-[Dog Shelter project deployed to Render](url)
+[Dog Shelter project deployed to Render](https://dog-shelter-1m73.onrender.com)
 
 ## Getting started
 
