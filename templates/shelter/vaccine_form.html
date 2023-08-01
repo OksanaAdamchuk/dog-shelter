@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% load crispy_forms_filters %}
+
+{% block title %}
+  <title>{{ object|yesno:"Update,Create" }} vaccine</title>
+{% endblock %}
+
+{% block content %}
+
+  <h2>{{ object|yesno:"Update,Create new" }} vaccine</h2>
+  <form action="" method="post" novalidate>
+    {% csrf_token %}
+    {{ form|crispy }}
+    <input type="submit" value="Submit" class="btn btn-secondary">
+    <a href="{% url 'shelter:vaccine-list' %}" class="btn btn-danger">Cancel</a>
+  </form>
+
+{% endblock %}

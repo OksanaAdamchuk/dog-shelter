@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% load crispy_forms_filters %}
+{% load crispy_forms_tags %}
+
+{% block title %}
+  <title>{{ object|yesno:"Update,Create" }} breed</title>
+{% endblock %}
+
+{% block content %}
+
+  <h2>{{ object|yesno:"Update,Create new" }} breed</h2>
+  <form action="" method="post" novalidate>
+    {% csrf_token %}
+    {{ form|crispy }}
+    <input type="submit" value="Submit" class="btn btn-secondary">
+    {% if object %}
+      <a href="{{ breed.get_absolute_url }}" class="btn btn-danger">Cancel</a>
+    {% else %}
+    <a href="{% url 'shelter:breed-list' %}" class="btn btn-danger">Cancel</a>
+    {% endif %}
+  </form>
+
+{% endblock %}

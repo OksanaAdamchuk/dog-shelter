@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+
+{% block title %}
+  <title>Dogs</title>
+{% endblock %}
+
+{% block content %}
+  <h2>{{ dog.name }}</h2>
+  {% if user.is_authenticated %}
+    <div>
+      <form action="" method="post" class="adding-link">
+        {% csrf_token %}
+        {% if user in dog.caretakers.all %}
+          <button  class="btn btn-danger">Delete me from caretakers</button>
+        {% else %}
+          <button class="btn btn-success">Add me to caretakers</button>
+        {% endif %}
+      </form>
+    </div>
+  {% endif %}
+  <ul>
+    {% if dog.age %}
+    <li>Age: {{ dog.age }}</li>
+    {% endif %}
+    <li>Date of registartion in the shelter: {{ dog.date_registered }} </li>
+    <li>Sterilized: {{ dog.sterilized }}</li>
+    <li>Gender: {{ dog.gender }}</li>
+    <li>Breed: {{ dog.breed.name }}</li>
+    {% if dog.vaccines %}
+    <li>Vaccinations list: 
+      <ol>
+        {% for vaccine in dog.vaccines.all %}
+          {% for vaccination in vaccinations %}
+            {% if vaccine == vaccination.vaccine %}
+              <li> {{ vaccine }}. Vaccinated at {{ vaccination.vaccination_date }} 
+                <a href="{% url 'shelter:vaccination-update' dog_id=dog.pk pk=vaccination.pk %}" class="btn btn-secondary">Update</a>
+                <a href="{% url 'shelter:vaccination-delete' dog_id=dog.pk pk=vaccination.pk %}" class="btn btn-danger">Delete</a>
+              </li>
+            {% endif %}
+          {% endfor %}
+        {% empty %}
+          <span> - </span>
+        {% endfor %}
+      </ol>
+      <p>
+        <a href="{% url 'shelter:vaccination-create' dog_id=dog.id %}" class="btn btn-secondary">Add vaccination</a>
+      </p>
+    </li>
+    {% endif %}
+    {% if dog.caretakers %}
+    <li>Caretakers: 
+      <ol>
+        {% for caretaker in dog.caretakers.all %}
+          <li> {{ caretaker.first_name }} ({{ caretaker.username }})</li>
+        {% empty %}
+        <span>This dog doesn't have caretakers now </span>
+        {% endfor %}
+      </ol>
+    </li>
+    {% endif %}
+  </ul>
+  <p>
+    <a href="{% url 'shelter:dog-update' pk=dog.id %}" class="btn btn-secondary">Update</a>
+    <a href="{% url 'shelter:dog-delete' pk=dog.id %}" class="btn btn-danger">Delete</a>
+  </p>
+
+{% endblock %}

@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block title %}
+  <title>Delete dog</title>
+{% endblock %}
+
+{% block content %}
+
+  <h2>Delete dog "{{ dog.name }}"?</h2>
+  <p>You can delete this dog only if it's adopted.</p>
+  <form action="" method="post" class="delete-form">
+    {% csrf_token %}
+
+    <input type="submit" value="Yes" class="btn btn-danger">
+    <a href="{% url 'shelter:dog-detail' pk=dog.id %}" class="btn btn-secondary">Cancel</a>
+  </form>
+
+{% endblock %}

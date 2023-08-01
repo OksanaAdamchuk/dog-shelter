@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+
+{% block title %}
+  <title>Home page</title>
+{% endblock %}
+
+{% block content %}
+<div class="mb-5">
+
+  <h2>Find Your Furry Friend: Adopt or Caretake Today!</h2>
+
+  <div class="card mb-3 card-transparent" style="background-color: transparent;">
+    <div class="row g-0">
+      <div class="col-md-1 side-line" style="border-left: 6px solid rgb(99, 8, 8);">
+      </div>
+      <div class="col-md-10">
+        <div class="card-body">
+          <h5 class="card-title">Welcome to our Dog Shelter!</h5>
+          <p class="card-text">We are more than just a place for adorable, lovable pups; we are a compassionate community dedicated to finding forever homes for our furry friends. At our shelter, you have the unique opportunity to not only adopt a dog but also become a part-time caretaker for these precious canines. We believe that everyone should experience the joy and love that a dog brings, even if they can't commit to full-time ownership.</p>
+          <p class="card-text">Currently in our shelter we have <strong>{{ number_of_dogs }}</strong> dogs</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>  
+
+{% endblock %}

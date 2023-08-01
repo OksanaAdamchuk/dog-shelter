@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block title %}
+  <title>Breeds</title>
+{% endblock %}
+
+{% block content %}
+  <h2>Breeds list</h2>
+  <a href="{% url 'shelter:breed-create' %}" class="adding-link btn btn-dark">Add new breed</a>
+  <div class="table-container">
+    <p>In our shelter you can find dogs of any breeds </p>
+    {% block search_form %}
+      {% include "includes/search_form.html" %}
+    {% endblock %}
+    {% if breed_list %}
+      <table class="table table-striped">
+        <tr>
+          <th>Name</th>
+          <th>Dog size</th>
+          <th>Number of dogs</th>
+        </tr>
+        {% for breed in breed_list %}
+          <tr>
+            <td><a href="{{ breed.get_absolute_url }}">{{ breed.name }}</a></td>
+            <td>{{ breed.dog_size }}</td>
+            <td>{{ breed.dogs.count }}</td>
+          </tr>
+        {% endfor %}
+      </table>
+  </div> 
+  {% else %}
+    <p>There are no breeds</p>
+  {% endif %}
+
+{% endblock %}

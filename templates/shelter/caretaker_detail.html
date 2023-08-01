@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block title %}
+  <title>Caretakers</title>
+{% endblock %}
+
+{% block content %}
+  <h2>{{ caretaker.first_name }} {{ caretaker.last_name }}</h2>
+  <p>Expert-level: {{ caretaker.expert_level }}</p>
+  <p>
+    <a href="{% url 'shelter:caretaker-update' pk=caretaker.id %}" class="btn btn-secondary">Update</a>
+    <a href="{% url 'shelter:caretaker-delete' pk=caretaker.id %}" class="btn btn-danger">Delete</a>
+  </p>
+  {% if caretaker.dogs %}
+    <ul>List of dogs you are obliged to take care of:
+      {% for dog in caretaker.dogs.all %}
+        <li><a href="{% url 'shelter:dog-detail' pk=dog.id %}" class="card-link"> {{ dog.name }} </a>({{ dog.age }}, {{ dog.breed }}) </li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>You didn't choose any dog to take care of.</p>
+  {% endif %}
+{% endblock %}

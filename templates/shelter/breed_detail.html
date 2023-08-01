@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block title %}
+  <title>Breeds</title>
+{% endblock %}
+
+{% block content %}
+  <h2>{{ breed.name }} ({{ breed.dog_size }}-size dogs)</h2>
+  <p>
+    <a href="{% url 'shelter:breed-update' pk=breed.id %}" class="btn btn-secondary">Update</a>
+    <a href="{% url 'shelter:breed-delete' pk=breed.id %}" class="btn btn-danger">Delete</a>
+  </p>
+  {% for dog in breed.dogs.all %}
+    <p>Currently in our shelter we have {{ breed.dogs.count }} dog{{ breed.dogs.count|pluralize }} of this breed</p>
+    <ul>
+      <li><a href="{% url 'shelter:dog-detail' pk=dog.id %}">{{ dog.name }}</a> (age: {{ dog.age }})</li>
+    </ul>
+  {% empty %}
+    <p>Currently in our shelter we don't have dogs of this breed</p>
+  {% endfor %}
+
+{% endblock %}

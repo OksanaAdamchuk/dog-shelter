@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block title %}
+  <title>Dogs</title>
+{% endblock %}
+
+{% block content %}
+  <h2>Our dogs</h2>
+  <h3>Meet Our Furry Family: Adoption Made Heartwarming</h3> 
+  <p>For those who are ready to welcome a new furry family member into their home, our adoption process is simple and rewarding. Our website showcases a delightful gallery of dogs of all shapes, sizes, and personalities, each with a heartwarming story waiting to be discovered. You can browse through our canine companions, read their profiles, and see if any of them tugs at your heartstrings. When you've found a match, you can apply for adoption, and our caring team will guide you through the process to ensure a smooth transition into your home.</p>
+  <a href="{% url 'shelter:dog-create' %}" class="adding-link btn btn-dark">Add new dog</a>
+  {% block search_form %}
+    {% include "includes/search_form.html" %}
+  {% endblock %}
+  
+  <div class="card-container">
+  {% if dog_list %}
+    {% for dog in dog_list %}
+      <div class="card" style="width: 18rem;">
+        <div class="card-body">
+          <h5 class="card-title"> {{ dog.name }} </h5>
+          {% if dog.age %}
+          <h6 class="card-subtitle mb-2 text-body-secondary">{{ dog.age }}</h6>
+          {% endif %}
+          <p class="card-text">This dog was registered in our shelter {{ dog.date_registered }}. This is {{ dog.breed.name }} {{ dog.gender }} dog</p>
+          <a href="{% url 'shelter:dog-detail' pk=dog.id %}" class="card-link">Details</a>
+        </div>
+      </div>
+    {% endfor %}
+  {% else %}
+    <p>We don't have dogs in our shelter now</p>
+  {% endif %}
+  </div>
+{% endblock %}

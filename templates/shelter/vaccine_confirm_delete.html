@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block title %}
+  <title>Delete vaccine</title>
+{% endblock %}
+
+{% block content %}
+
+  <h2>Delete vaccine "{{ vaccine.name }}"?</h2>
+  <form action="" method="post" class="delete-form">
+    {% csrf_token %}
+
+    <input type="submit" value="Yes" class="btn btn-danger">
+    <a href="{% url 'shelter:vaccine-list' %}" class="btn btn-secondary">Cancel</a>
+  </form>
+
+{% endblock %}

@@ -1,0 +1,19 @@
+<div>
+  <h1>DOG SHELTER "HAPPY PAWS"</h1>
+</div>
+<nav>
+    <ul>
+    <li><a href="{% url 'shelter:index' %}">Home</a></li>
+    <li><a href="{% url 'shelter:dog-list' %}">Dogs</a></li>
+    <li><a href="{% url 'shelter:vaccine-list' %}">Vaccines</a></li>
+    <li><a href="{% url 'shelter:caretaker-list' %}">Caretakers</a></li>
+    <li><a href="{% url 'shelter:breed-list' %}">Breeds</a></li>
+    {% if user.is_authenticated %}
+      <li><a class="menu-item " href="{{ user.get_absolute_url }}">User: {{ user.username }}</a></li>
+      <li><a class="menu-item" href="{% url 'logout' %}">Logout</a></li>
+    {% else %}
+      <li><a class="menu-item" href="{% url 'login' %}">Login</a></li>
+      <li><a class="menu-item" href="{% url 'shelter:caretaker-create' %}">Sign In</a></li>
+    {% endif %}
+    </ul>
+</nav>
