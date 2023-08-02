@@ -12,8 +12,8 @@
       <li><a class="menu-item " href="{{ user.get_absolute_url }}">User: {{ user.username }}</a></li>
       <li><a class="menu-item" href="{% url 'logout' %}">Logout</a></li>
     {% else %}
-      <li><a class="menu-item" href="{% url 'login' %}">Login</a></li>
-      <li><a class="menu-item" href="{% url 'shelter:caretaker-create' %}">Sign In</a></li>
+      <li><a class="menu-item" href="{% url 'login' %}">Sign In</a></li>
+      <li><a class="menu-item" href="{% url 'shelter:caretaker-create' %}">Sign Up</a></li>
     {% endif %}
     </ul>
 </nav>
